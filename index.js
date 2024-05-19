@@ -23,12 +23,12 @@ app.use('/api/players', playerRoute);
 app.use('/external-api', externalAPIRoutes);
 app.use('/users', userRoute);
 
-
+const port = process.env.PORT || 3000;
 mongoose.connect('mongodb+srv://gueyling:hgl25hgl@clustergl.w80d4ig.mongodb.net/WebAPIdb')
 .then(() => {
     console.log('Connected to MongoDB')
-    app.listen(3000, () => {
-        console.log('Server is running on port 3000');
+    app.listen(port, () => {
+        console.log(`Server is running on port ${port}`);
     });
 })
 .catch(err => console.error('Could not connect to MongoDB', err));
