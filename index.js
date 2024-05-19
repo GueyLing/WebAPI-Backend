@@ -27,7 +27,7 @@ const port = process.env.PORT || 3000;
 mongoose.connect('mongodb+srv://gueyling:hgl25hgl@clustergl.w80d4ig.mongodb.net/WebAPIdb')
 .then(() => {
     console.log('Connected to MongoDB')
-    app.listen(port, () => {
+    app.listen(port, '0.0.0.0', () => {
         console.log(`Server is running on port ${port}`);
     });
 })
