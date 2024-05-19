@@ -35,12 +35,12 @@ const login = async (req, res) => {
     }
     try{
         if (await bcrypt.compare(req.body.password, user.password)){
-            if (req.body.role === 'admin') {
+            if (req.body.role === 'admin' && user.role === 'admin') {
                 res.json({ message: 'login_success_admin', token: token  });
-            } else if (req.body.role === 'user') {
+            } else if (req.body.role === 'user' && user.role === 'user') {
                 res.json({ message: 'login_success_user', token: token  });
             } else {
-                res.status(403).send('Not authorized')
+                res.json({ message: 'login_fail', token: token  });
             }
         } else {
             res.send('Not Allowed')
