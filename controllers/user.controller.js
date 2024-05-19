@@ -1,5 +1,6 @@
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
 
 const getUsers = async (req, res) => {
     try{
@@ -28,15 +29,16 @@ const createUser = async (req, res) => {
 const login = async (req, res) => {
     
     const user = await User.findOne({ username: req.body.name });
+    const token = jwt.sign({user}, 'my_secret_key');
     if (user == null) {
         res.json({ message: 'login_fail' });
     }
     try{
         if (await bcrypt.compare(req.body.password, user.password)){
             if (req.body.role === 'admin') {
-                res.json({ message: 'login_success_admin' });
+                res.json({ message: 'login_success_admin', token: token  });
             } else if (req.body.role === 'user') {
-                res.json({ message: 'login_success_user' });
+                res.json({ message: 'login_success_user', token: token  });
             } else {
                 res.status(403).send('Not authorized')
             }

@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const Player = require('../models/player.model');
 
 const getPlayers = async (req, res) => {   
@@ -5,7 +6,8 @@ const getPlayers = async (req, res) => {
         const players = await Player.find();
         res.status(200).json({players});
     }catch(err){
-        res.status(500).json({message: err.message});
+        console.log(err);
+     //   res.status(500).json({message: err.message});
     }
 }
 
