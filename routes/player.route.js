@@ -7,9 +7,9 @@ const verifyToken = require('../tokenMiddleware.js');
 
 
 router.get('/', ensureToken, verifyToken, getPlayers);
-router.get('/:id', getPlayer);
-router.put('/:id', updatePlayer);
-router.delete('/:id', deletePlayer);
-router.post('/', createPlayer);
+router.get('/:id',  ensureToken, verifyToken, getPlayer);
+router.put('/:id',  ensureToken, verifyToken, updatePlayer);
+router.delete('/:id',  ensureToken, verifyToken, deletePlayer);
+router.post('/',  ensureToken, verifyToken, createPlayer);
 
 module.exports = router;
