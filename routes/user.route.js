@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/user.model');
 const router = express.Router();
 const {getUsers, createUser, login, bookmarkPlayer} = require('../controllers/user.controller.js');
+const cors = require('cors');
 
 router.get('/', getUsers);
 router.post('/', createUser);
