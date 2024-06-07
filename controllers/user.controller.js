@@ -36,9 +36,9 @@ const login = async (req, res) => {
     try{
         if (await bcrypt.compare(req.body.password, user.password)){
             if (req.body.role === 'admin' && user.role === 'admin') {
-                res.json({ message: 'login_success_admin', token: token  });
+                res.json({ message: 'login_success_admin', token: token, user_id: user._id });
             } else if (req.body.role === 'user' && user.role === 'user') {
-                res.json({ message: 'login_success_user', token: token  });
+                res.json({ message: 'login_success_user', token: token, user_id: user._id  });
             } else {
                 res.json({ message: 'login_fail', token: token  });
             }
@@ -51,8 +51,21 @@ const login = async (req, res) => {
     }
 }
 
+const bookmarkPlayer = async (req, res) => {
+    const user = await User.findById(req.params.userId);
+    const playerIndex = user.bookmarkedPlayers.indexOf(req.params.playerId);
+    if (playerIndex === -1) {
+      user.bookmarkedPlayers.push(req.params.playerId);
+    } else {
+      user.bookmarkedPlayers.splice(playerIndex, 1);
+    }
+    await user.save();
+    res.json({ isBookmarked: playerIndex === -1 });
+  };
+    
 module.exports = {
     getUsers,
     createUser,
-    login
+    login,
+    bookmarkPlayer
 }

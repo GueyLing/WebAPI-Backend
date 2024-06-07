@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-    }
+    },
+    bookmarkedPlayers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }],
 });
 const User = mongoose.model('users', userSchema);
 
