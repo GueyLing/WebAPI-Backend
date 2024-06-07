@@ -9,7 +9,14 @@ const cors = require('cors');
 const app = express();
 
 // middleware
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:4200', // Adjust this as needed
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  }));
+  
+  // Handle preflight requests
+  app.options('*', cors());
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
