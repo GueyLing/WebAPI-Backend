@@ -6,6 +6,6 @@ const {getUsers, createUser, login, bookmarkPlayer} = require('../controllers/us
 router.get('/', getUsers);
 router.post('/', createUser);
 router.post('/login', login);
-router.post('/api/users/:userId/bookmark/:playerId', bookmarkPlayer);
+router.post('/api/users/:userId/bookmark/:playerId', cors(), bookmarkPlayer);
 
 module.exports = router;
