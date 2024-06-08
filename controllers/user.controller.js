@@ -28,11 +28,7 @@ const createUser = async (req, res) => {
 }
 
 const login = async (req, res) => {
-     // Set CORS headers
-     res.setHeader('Access-Control-Allow-Origin', '*'); // replace '*' with your client's origin in production
-     res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-     
+    
     const user = await User.findOne({ username: req.body.name });
     const token = jwt.sign({user}, 'my_secret_key');
     if (user == null) {
