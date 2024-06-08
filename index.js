@@ -9,7 +9,7 @@ const cors = require('cors');
 const app = express();
 
 // middleware
-app.use(cors());
+app.options('*', cors());
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
