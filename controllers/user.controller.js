@@ -75,7 +75,6 @@ const bookmarkPlayer = async (req, res) => {
   };
 
   const getBookmarkedPlayers = async (req, res) => {
-    console.log('getBookmarkedPlayers');
     const userId = req.params.userId;
     try {
       const user = await User.findById(userId);
