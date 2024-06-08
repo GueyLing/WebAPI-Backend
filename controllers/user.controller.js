@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const Player = require('../models/player.model');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 
@@ -72,11 +73,33 @@ const bookmarkPlayer = async (req, res) => {
     }
     res.json({ isBookmarked });
   };
+
+  const getBookmarkedPlayers = async (req, res) => {
+    console.log('getBookmarkedPlayers');
+    const userId = req.params.userId;
+    try {
+      const user = await User.findById(userId);
+      if (user && user.bookmarkedPlayers) {
+        let bookmarkedPlayers = user.bookmarkedPlayers;
+        let playerDetails = [];
+        for (let playerId of bookmarkedPlayers) {
+          const player = await Player.findById(playerId);
+          playerDetails.push(player);
+        }
+        res.json(playerDetails);
+      } else {
+        res.status(404).send({ message: 'User not found' });
+      }
+    } catch (err) {
+      res.status(500).send({ message: 'Error retrieving user with id ' + userId });
+    }
+  };
     
 module.exports = {
     getUsers,
     createUser,
     login,
     bookmarkPlayer,
-    isBookmarked
+    isBookmarked,
+    getBookmarkedPlayers
 }
