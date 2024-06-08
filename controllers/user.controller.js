@@ -62,10 +62,21 @@ const bookmarkPlayer = async (req, res) => {
     await user.save();
     res.json({ isBookmarked: playerIndex === -1 });
   };
+
+  const isBookmarked = async (req, res) => {
+    const user = await User.findById(req.params.userId);
+    let isBookmarked = false;
+    if (user && user.bookmarkedPlayers) {
+    const playerIndex = user.bookmarkedPlayers.indexOf(req.params.playerId);
+    isBookmarked = playerIndex !== -1;
+    }
+    res.json({ isBookmarked });
+  };
     
 module.exports = {
     getUsers,
     createUser,
     login,
-    bookmarkPlayer
+    bookmarkPlayer,
+    isBookmarked
 }
