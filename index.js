@@ -9,15 +9,7 @@ const cors = require('cors');
 const app = express();
 
 // middleware
-const corsOptions = {
-    origin: '*',  // replace '*' with your client's origin in production
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }
-  
-  app.use(cors(corsOptions));
+app.use(cors());
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
